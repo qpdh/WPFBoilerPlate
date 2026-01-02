@@ -12,23 +12,23 @@
     d:DataContext="{d:DesignInstance vm:ProductCreateViewModel}"
     SizeToContent="WidthAndHeight"
     mc:Ignorable="d">
-    <Border>
+    <Border Padding="{StaticResource Spacing.M}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="8" />
+                <RowDefinition Height="{StaticResource Grid.Spacing.M}" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
             <Grid HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="4" />
+                    <ColumnDefinition Width="{StaticResource Grid.Spacing.S}" />
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="4" />
+                    <RowDefinition Height="{StaticResource Grid.Spacing.S}" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
@@ -59,7 +59,7 @@
                     Text="{Binding Name}" />
             </Grid>
 
-            <UniformGrid Grid.Row="2" HorizontalAlignment="Center">
+            <UniformGrid Grid.Row="2">
                 <Button Command="{Binding CreateProductCommand}" Content="Create" />
             </UniformGrid>
         </Grid>

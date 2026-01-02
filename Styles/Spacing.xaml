@@ -1,5 +1,19 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <!--  고정 간격  -->
+    <GridLength x:Key="Grid.Spacing.XS">4</GridLength>
+    <GridLength x:Key="Grid.Spacing.S">8</GridLength>
+    <GridLength x:Key="Grid.Spacing.M">12</GridLength>
+    <GridLength x:Key="Grid.Spacing.L">16</GridLength>
+    <GridLength x:Key="Grid.Spacing.XL">24</GridLength>
+
+    <!--  비율  -->
+    <GridLength x:Key="Grid.Star.1">1*</GridLength>
+    <GridLength x:Key="Grid.Star.2">2*</GridLength>
+
+    <!--  Auto  -->
+    <GridLength x:Key="Grid.Auto">Auto</GridLength>
+
     <!--  =========================  -->
     <!--  Spacing Values (Token)  -->
     <!--  =========================  -->

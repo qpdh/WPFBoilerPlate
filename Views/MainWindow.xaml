@@ -16,6 +16,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+            <RowDefinition Height="{StaticResource Grid.Spacing.M}" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
@@ -41,7 +42,7 @@
         </ListView>
 
 
-        <Grid Grid.Row="1" HorizontalAlignment="Center">
+        <Grid Grid.Row="2" HorizontalAlignment="Center">
             <Button Command="{Binding CreateProductCommand}" Content="Create Product" />
         </Grid>
 
