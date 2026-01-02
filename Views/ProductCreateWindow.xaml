@@ -7,55 +7,61 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:WPFBoilerPlate.ViewModels"
     Title="ProductCreateWindow"
-    Width="800"
-    Height="450"
+    Width="auto"
+    Height="auto"
     d:DataContext="{d:DesignInstance vm:ProductCreateViewModel}"
+    SizeToContent="WidthAndHeight"
     mc:Ignorable="d">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-
-        <Grid HorizontalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
+    <Border>
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
+                <RowDefinition Height="8" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
-            <Label
-                Grid.Row="0"
-                Content="Category"
-                Target="{Binding ElementName=CategoryNameTextBox}" />
-            <ComboBox
-                x:Name="CategoryNameTextBox"
-                Grid.Row="0"
-                Grid.Column="1"
-                DisplayMemberPath="Name"
-                IsReadOnly="True"
-                ItemsSource="{Binding Categories}"
-                SelectedItem="{Binding Category}" />
+            <Grid HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="4" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="4" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
 
-            <Label
-                Grid.Row="1"
-                Content="Name"
-                Target="{Binding ElementName=NameTextBox}" />
-            <TextBox
-                x:Name="NameTextBox"
-                Grid.Row="1"
-                Grid.Column="1"
-                Text="{Binding Name}" />
+                <Label
+                    Grid.Row="0"
+                    Content="Category"
+                    Target="{Binding ElementName=CategoryNameTextBox}" />
+                <ComboBox
+                    x:Name="CategoryNameTextBox"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    MinWidth="100"
+                    DisplayMemberPath="Name"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding Categories}"
+                    SelectedItem="{Binding Category}" />
+
+                <Label
+                    Grid.Row="2"
+                    Content="Name"
+                    Target="{Binding ElementName=NameTextBox}" />
+                <TextBox
+                    x:Name="NameTextBox"
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Text="{Binding Name}" />
+            </Grid>
+
+            <UniformGrid Grid.Row="2" HorizontalAlignment="Center">
+                <Button Command="{Binding CreateProductCommand}" Content="Create" />
+            </UniformGrid>
         </Grid>
-
-        <UniformGrid Grid.Row="1" HorizontalAlignment="Center">
-            <Button Command="{Binding CreateProductCommand}" Content="Create" />
-        </UniformGrid>
-
-    </Grid>
+    </Border>
 </Window>
