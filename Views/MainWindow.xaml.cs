@@ -8,11 +8,17 @@ namespace WPFBoilerPlate
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(MainViewModel viewModel)
+        public MainWindow()
         {
             InitializeComponent();
+        }
 
-            this.DataContext = viewModel;
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is MainViewModel viewModel)
+            {
+                viewModel.LoadCommand.Execute(this);
+            }
         }
     }
 }
