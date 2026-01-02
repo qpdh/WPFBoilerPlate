@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using WPFBoilerPlate.Models;
@@ -7,13 +8,16 @@ using WPFBoilerPlate.ViewModels.Interfaces;
 
 namespace WPFBoilerPlate.ViewModels
 {
-    public partial class ProductViewModel : ObservableObject, IBaseViewModel
+    public partial class ProductViewModel : ObservableValidator, IBaseViewModel
     {
         private readonly IProductService productService;
         private readonly IWindowService windowService;
+
         [ObservableProperty]
         private Product product;
 
+        [Required]
+        [Length(3, 30)]
         [ObservableProperty]
         private string name;
 
@@ -21,7 +25,6 @@ namespace WPFBoilerPlate.ViewModels
         private Category category;
 
         public List<Category> Categories { get; }
-
 
         public ProductViewModel(IProductService productService, ICategoryService categoryService, IWindowService windowService, Product product)
         {
@@ -39,18 +42,15 @@ namespace WPFBoilerPlate.ViewModels
         }
 
         [RelayCommand]
-        public async Task CreateProduct()
-        {
-            if (MessageBox.Show("정말로 생성하시겠습니까?", "생성 확인", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                await productService.AddProductAsync(Product);
-                windowService.CloseWindow(this);
-            }
-        }
-
-        [RelayCommand]
         public async Task UpdateProduct()
         {
+            ValidateAllProperties();
+            if (HasErrors)
+            {
+                MessageBox.Show("제품 수정 실패", "제품 수정 실패", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             Product.Name = Name;
             Product.CategoryId = Category.CategoryId;
 
@@ -60,7 +60,7 @@ namespace WPFBoilerPlate.ViewModels
         [RelayCommand]
         public async Task DeleteProduct()
         {
-            if (MessageBox.Show("정말로 지우시겠습니까?", "삭제 확인", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBox.Show("정말로 지우시겠습니까?", "삭제 확인", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
                 await productService.DeleteProductAsync(Product.ProductId);
                 windowService.CloseWindow(this);

@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:WPFBoilerPlate.ViewModels"
     Title="ProductWindow"
-    Width="auto"
+    Width="440"
     Height="auto"
     d:DataContext="{d:DesignInstance vm:ProductViewModel}"
     SizeToContent="WidthAndHeight"
@@ -56,6 +56,8 @@
                     x:Name="NameTextBox"
                     Grid.Row="2"
                     Grid.Column="2"
+                    Width="340"
+                    d:Text="MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
                     Text="{Binding Name, Mode=TwoWay}" />
             </Grid>
 
