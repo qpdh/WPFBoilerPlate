@@ -55,13 +55,19 @@ namespace WPFBoilerPlate.ViewModels
                 return;
             }
 
-            windowService.ShowDialog<ProductWindow, ProductViewModel>(product);
+            windowService.ShowDialog<ProductDetailWindow, ProductViewModel>(product);
         }
 
         [RelayCommand]
         private void CreateProduct()
         {
             windowService.ShowDialog<ProductCreateWindow, ProductCreateViewModel>();
+        }
+
+        [RelayCommand]
+        private void ChangeLanguage()
+        {
+            windowService.ShowDialog<LanguageChangeWindow, LanguageChangeViewModel>();
         }
 
         public void Receive(ProductUpdatedMessage message)

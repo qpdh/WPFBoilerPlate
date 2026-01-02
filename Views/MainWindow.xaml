@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:WPFBoilerPlate"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:WPFBoilerPlate.ViewModels"
-    Title="MainWindow"
+    Title="{Binding [Title_MainWindow], Source={StaticResource Loc}}"
     Width="800"
     Height="450"
     d:DataContext="{d:DesignInstance vm:MainViewModel}"
@@ -43,8 +43,15 @@
             </ListView>
 
 
-            <Grid Grid.Row="2" HorizontalAlignment="Center">
-                <Button Command="{Binding CreateProductCommand}" Content="Create Product" />
+            <Grid Grid.Row="2">
+                <Button
+                    HorizontalAlignment="Center"
+                    Command="{Binding CreateProductCommand}"
+                    Content="{Binding [Button_CreateProduct], Source={StaticResource Loc}}" />
+                <Button
+                    HorizontalAlignment="Right"
+                    Command="{Binding ChangeLanguageCommand}"
+                    Content="{Binding [Button_ChangeLanguage], Source={StaticResource Loc}}" />
             </Grid>
 
         </Grid>

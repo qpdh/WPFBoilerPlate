@@ -1,25 +1,25 @@
-﻿using System.Globalization;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.ComponentModel;
+using System.Globalization;
 using WPFBoilerPlate.Properties.Strings;
 
 namespace WPFBoilerPlate.Utils
 {
-    public class LocalizationService : ObservableObject
+    public class LocalizationService : INotifyPropertyChanged
     {
-        public static LocalizationService Instance { get; } = new();
-
         public string this[string key]
             => Strings.ResourceManager.GetString(key, CultureInfo.CurrentUICulture) ?? key;
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public void ChangeCulture(string culture)
         {
-            CultureInfo.CurrentUICulture = new CultureInfo(culture);
-            CultureInfo.CurrentCulture = new CultureInfo(culture);
+            var ci = new CultureInfo(culture);
+            CultureInfo.CurrentUICulture = ci;
+            CultureInfo.CurrentCulture = ci;
 
             Properties.Settings.Default.AppLanguage = culture;
-            Properties.Settings.Default.Save();
 
-            OnPropertyChanged(string.Empty);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
         }
     }
 }

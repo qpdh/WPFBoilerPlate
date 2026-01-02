@@ -61,11 +61,110 @@ namespace WPFBoilerPlate.Properties.Strings {
         }
         
         /// <summary>
+        ///   적용과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string Button_Apply {
+            get {
+                return ResourceManager.GetString("Button_Apply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   언어 변경과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string Button_ChangeLanguage {
+            get {
+                return ResourceManager.GetString("Button_ChangeLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   생성과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string Button_Create {
+            get {
+                return ResourceManager.GetString("Button_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   제품 추가과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string Button_CreateProduct {
+            get {
+                return ResourceManager.GetString("Button_CreateProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   업데이트과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string Button_Update {
+            get {
+                return ResourceManager.GetString("Button_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   카테고리과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string Label_Category {
+            get {
+                return ResourceManager.GetString("Label_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   언어과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string Label_Language {
+            get {
+                return ResourceManager.GetString("Label_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   제품명과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string Label_ProductName {
+            get {
+                return ResourceManager.GetString("Label_ProductName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   제품 생성과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string Title_CreateProduct {
             get {
                 return ResourceManager.GetString("Title_CreateProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   언어 변경과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string Title_LanguageChangeWindow {
+            get {
+                return ResourceManager.GetString("Title_LanguageChangeWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   메인 화면과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string Title_MainWindow {
+            get {
+                return ResourceManager.GetString("Title_MainWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   제품 상세과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string Title_ProductDetail {
+            get {
+                return ResourceManager.GetString("Title_ProductDetail", resourceCulture);
             }
         }
     }

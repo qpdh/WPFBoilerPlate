@@ -1,0 +1,47 @@
+﻿<Window
+    x:Class="WPFBoilerPlate.Views.LanguageChangeWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:WPFBoilerPlate.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:WPFBoilerPlate.ViewModels"
+    Title="{Binding [Title_LanguageChangeWindow], Source={StaticResource Loc}}"
+    Width="800"
+    Height="450"
+    d:DataContext="{d:DesignInstance vm:LanguageChangeViewModel}"
+    mc:Ignorable="d">
+    <Border Padding="{StaticResource Spacing.M}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="{StaticResource Grid.Spacing.M}" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="{StaticResource Grid.Spacing.S}" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Column="0"
+                    Content="{Binding [Label_Language], Source={StaticResource Loc}}"
+                    Target="{Binding ElementName=LanguageComboBox}" />
+                <ComboBox
+                    x:Name="LanguageComboBox"
+                    Grid.Column="2"
+                    DisplayMemberPath="LanguageName"
+                    ItemsSource="{Binding Languages}"
+                    SelectedItem="{Binding SelectedLanguage}" />
+            </Grid>
+
+            <Button
+                Grid.Row="2"
+                Command="{Binding ChangeLanguageCommand}"
+                CommandParameter="{Binding SelectedLanguage}"
+                Content="{Binding [Button_Apply], Source={StaticResource Loc}}" />
+        </Grid>
+    </Border>
+</Window>

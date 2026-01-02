@@ -1,7 +1,9 @@
-﻿using System.Windows;
+﻿using System.Globalization;
+using System.Windows;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WPFBoilerPlate.Models;
+using WPFBoilerPlate.Properties;
 using WPFBoilerPlate.Repositories;
 using WPFBoilerPlate.Repositories.Interfaces;
 using WPFBoilerPlate.Services;
@@ -30,6 +32,16 @@ namespace WPFBoilerPlate
         {
             base.OnStartup(e);
 
+            var culture = Settings.Default.AppLanguage;
+            if (!string.IsNullOrWhiteSpace(culture))
+            {
+                var ci = new CultureInfo(culture);
+                CultureInfo.CurrentUICulture = ci;
+                CultureInfo.CurrentCulture = ci;
+            }
+
+            Resources["Loc"] = ServiceProvider.GetRequiredService<LocalizationService>();
+
             var db = ServiceProvider.GetRequiredService<AppDBContext>();
             db.Database.Migrate();
 
@@ -46,6 +58,7 @@ namespace WPFBoilerPlate
 
             // Utils
             services.AddSingleton<AppDBContext>();
+            services.AddSingleton<LocalizationService>();
 
             // Repositories
             services.AddSingleton<IBaseRepository<Category>, CategoryRepository>();
@@ -60,11 +73,13 @@ namespace WPFBoilerPlate
             services.AddTransient<MainViewModel>();
             services.AddTransient<ProductViewModel>();
             services.AddTransient<ProductCreateViewModel>();
+            services.AddTransient<LanguageChangeViewModel>();
 
             // Views
             services.AddTransient<MainWindow>();
-            services.AddTransient<ProductWindow>();
+            services.AddTransient<ProductDetailWindow>();
             services.AddTransient<ProductCreateWindow>();
+            services.AddTransient<LanguageChangeWindow>();
 
             return services.BuildServiceProvider();
         }
