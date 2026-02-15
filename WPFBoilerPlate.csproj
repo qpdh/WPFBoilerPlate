@@ -47,4 +47,9 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Dtos\Users\" />
+    <Folder Include="Services\Users\" />
+  </ItemGroup>
+
 </Project>

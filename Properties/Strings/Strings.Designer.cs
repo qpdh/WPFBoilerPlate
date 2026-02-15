@@ -97,6 +97,15 @@ namespace WPFBoilerPlate.Properties.Strings {
         }
         
         /// <summary>
+        ///   삭제과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string Button_Delete {
+            get {
+                return ResourceManager.GetString("Button_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   업데이트과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string Button_Update {

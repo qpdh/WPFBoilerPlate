@@ -9,7 +9,7 @@
     Title="{Binding [Title_ProductDetailWindow], Source={StaticResource Loc}}"
     Width="440"
     Height="auto"
-    d:DataContext="{d:DesignInstance vm:ProductViewModel}"
+    d:DataContext="{d:DesignInstance vm:ProductDetailViewModel}"
     SizeToContent="WidthAndHeight"
     mc:Ignorable="d">
     <Border Padding="{StaticResource Spacing.M}">
@@ -44,9 +44,9 @@
                     Grid.Column="2"
                     MinWidth="100"
                     DisplayMemberPath="Name"
-                    IsReadOnly="True"
                     ItemsSource="{Binding Categories}"
-                    SelectedItem="{Binding Category, Mode=TwoWay}" />
+                    SelectedValue="{Binding ProductViewModel.CategoryId, Mode=TwoWay}"
+                    SelectedValuePath="CategoryId" />
 
                 <Label
                     Grid.Row="2"
@@ -58,7 +58,7 @@
                     Grid.Column="2"
                     Width="340"
                     d:Text="MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
-                    Text="{Binding Name, Mode=TwoWay}" />
+                    Text="{Binding ProductViewModel.Name, Mode=TwoWay}" />
             </Grid>
 
             <Grid Grid.Row="2">
@@ -73,7 +73,6 @@
                     Command="{Binding DeleteProductCommand}"
                     Content="{Binding [Button_Delete], Source={StaticResource Loc}}" />
             </Grid>
-
         </Grid>
     </Border>
 </Window>

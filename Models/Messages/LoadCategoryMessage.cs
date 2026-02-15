@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WPFBoilerPlate.Messages
+namespace WPFBoilerPlate.Models.Messages
 {
     internal class LoadCategoryMessage
     {

@@ -3,9 +3,11 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using WPFBoilerPlate.Messages;
-using WPFBoilerPlate.Models;
+using WPFBoilerPlate.Models.Dtos.Products;
+using WPFBoilerPlate.Models.Messages;
+using WPFBoilerPlate.Services.Categories;
 using WPFBoilerPlate.Services.Interfaces;
+using WPFBoilerPlate.Services.Products;
 using WPFBoilerPlate.ViewModels.Interfaces;
 using WPFBoilerPlate.Views;
 
@@ -15,21 +17,22 @@ namespace WPFBoilerPlate.ViewModels
     {
         private readonly IWindowService windowService;
         private readonly IProductService productService;
+        private readonly ICategoryService categoryService;
 
         [ObservableProperty]
-        private ObservableCollection<Product> products;
+        private ObservableCollection<ProductDto> products;
 
         [ObservableProperty]
-        private Product selectedProduct;
+        private ProductDto selectedProduct;
 
         [ObservableProperty]
         private bool isLoading;
 
-        public MainViewModel(IWindowService windowService, IProductService productService)
+        public MainViewModel(IWindowService windowService, IProductService productService, ICategoryService categoryService)
         {
             this.windowService = windowService;
             this.productService = productService;
-
+            this.categoryService = categoryService;
             WeakReferenceMessenger.Default.RegisterAll(this);
         }
 
@@ -39,7 +42,8 @@ namespace WPFBoilerPlate.ViewModels
             IsLoading = true;
             try
             {
-                Products = new ObservableCollection<Product>(await productService.GetProductsAsync());
+                var productResult = await productService.GetProductsAsync();
+                Products = new ObservableCollection<ProductDto>(productResult.Value);
             }
             finally
             {
@@ -48,14 +52,14 @@ namespace WPFBoilerPlate.ViewModels
         }
 
         [RelayCommand]
-        private void ItemDoubleClick(Product? product)
+        private void ItemDoubleClick(ProductDto? product)
         {
             if (product == null)
             {
                 return;
             }
 
-            windowService.ShowDialog<ProductDetailWindow, ProductViewModel>(product);
+            windowService.ShowDialog<ProductDetailWindow, ProductDetailViewModel>(product.ProductId);
         }
 
         [RelayCommand]
@@ -78,21 +82,21 @@ namespace WPFBoilerPlate.ViewModels
         private async Task OnProductUpdatedAsync(ProductUpdatedMessage message)
         {
             var updated = await productService.GetProductAsync(message.ProductId);
-            if (updated == null)
+            if (updated.IsSuccess == false)
             {
                 return;
             }
 
             var index = Products
                 .Select((p, i) => new { p, i })
-                .FirstOrDefault(x => x.p.ProductId == updated.ProductId)?.i;
+                .FirstOrDefault(x => x.p.ProductId == updated.Value.ProductId)?.i;
             if (index is null)
             {
                 return;
             }
 
             Products.RemoveAt(index.Value);
-            Products.Insert(index.Value, updated);
+            Products.Insert(index.Value, updated.Value);
         }
 
         public void Receive(ProductDeletedMessage message)
@@ -120,13 +124,13 @@ namespace WPFBoilerPlate.ViewModels
 
         private async Task OnProductCreatedAsync(ProductCreatedMessage message)
         {
-            var newProduct = await productService.GetProductAsync(message.ProductId);
-            if (newProduct == null)
+            var newProduct = await productService.GetProductAsync(message.ProductDto.ProductId);
+            if (newProduct.IsSuccess == false)
             {
                 return;
             }
 
-            Products.Add(newProduct);
+            Products.Add(newProduct.Value);
         }
     }
 }

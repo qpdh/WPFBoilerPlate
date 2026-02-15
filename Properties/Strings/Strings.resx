@@ -153,4 +153,7 @@
   <data name="Title_LanguageChangeWindow" xml:space="preserve">
     <value>언어 변경</value>
   </data>
+  <data name="Button_Delete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
 </root>

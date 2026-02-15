@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WPFBoilerPlate.Models;
+using WPFBoilerPlate.Models.Entities;
 using WPFBoilerPlate.Repositories.Interfaces;
 using WPFBoilerPlate.Utils;
 
 namespace WPFBoilerPlate.Repositories
 {
-    public class ProductRepository : IBaseRepository<Product>
+    public class ProductRepository : IBaseRepository<ProductEntity>
     {
         private readonly AppDBContext _context;
 
@@ -14,13 +14,15 @@ namespace WPFBoilerPlate.Repositories
             _context = context;
         }
 
-        public async Task AddAsync(Product entity)
+        public async Task<ProductEntity> AddAsync(ProductEntity entity)
         {
             await _context.Products.AddAsync(entity);
             await _context.SaveChangesAsync();
+
+            return entity;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<ProductEntity> DeleteAsync(int id)
         {
             var product = await _context.Products.FindAsync(id);
             if (product != null)
@@ -28,22 +30,25 @@ namespace WPFBoilerPlate.Repositories
                 _context.Products.Remove(product);
                 await _context.SaveChangesAsync();
             }
+
+            return product;
         }
 
-        public async Task<List<Product>> GetAllAsync()
+        public async Task<List<ProductEntity>> GetAllAsync()
         {
-            return await _context.Products.Include(p => p.Category).ToListAsync<Product>();
+            return await _context.Products.Include(p => p.Category).ToListAsync<ProductEntity>();
         }
 
-        public async Task<Product?> GetByIdAsync(int id)
+        public async Task<ProductEntity?> GetByIdAsync(int id)
         {
             return await _context.Products.FindAsync(id);
         }
 
-        public async Task UpdateAsync(Product entity)
+        public async Task<ProductEntity> UpdateAsync(ProductEntity entity)
         {
             _context.Products.Update(entity);
             await _context.SaveChangesAsync();
+            return entity;
         }
     }
 }

@@ -1,13 +1,12 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.EntityFrameworkCore;
-using WPFBoilerPlate.Messages;
-using WPFBoilerPlate.Models;
+﻿using Microsoft.EntityFrameworkCore;
+
+using WPFBoilerPlate.Models.Entities;
 using WPFBoilerPlate.Repositories.Interfaces;
 using WPFBoilerPlate.Utils;
 
 namespace WPFBoilerPlate.Repositories
 {
-    public class CategoryRepository : IBaseRepository<Category>
+    public class CategoryRepository : IBaseRepository<CategoryEntity>
     {
         private readonly AppDBContext _context;
 
@@ -16,39 +15,42 @@ namespace WPFBoilerPlate.Repositories
             _context = context;
         }
 
-        public async Task AddAsync(Category entity)
+        public async Task<CategoryEntity> AddAsync(CategoryEntity entity)
         {
             await _context.Categories.AddAsync(entity);
             await _context.SaveChangesAsync();
-            WeakReferenceMessenger.Default.Send(new LoadCategoryMessage());
+
+            return entity;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<CategoryEntity> DeleteAsync(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            CategoryEntity category = await _context.Categories.FindAsync(id);
             if (category != null)
             {
                 _context.Categories.Remove(category);
                 await _context.SaveChangesAsync();
-                WeakReferenceMessenger.Default.Send(new LoadCategoryMessage());
             }
+
+            return category;
         }
 
-        public async Task<List<Category>> GetAllAsync()
+        public async Task<List<CategoryEntity>> GetAllAsync()
         {
-            return await _context.Categories.ToListAsync<Category>();
+            return await _context.Categories.ToListAsync<CategoryEntity>();
         }
 
-        public async Task<Category?> GetByIdAsync(int id)
+        public async Task<CategoryEntity?> GetByIdAsync(int id)
         {
             return await _context.Categories.FindAsync(id);
         }
 
-        public async Task UpdateAsync(Category entity)
+        public async Task<CategoryEntity> UpdateAsync(CategoryEntity entity)
         {
             _context.Categories.Update(entity);
             await _context.SaveChangesAsync();
-            WeakReferenceMessenger.Default.Send(new LoadCategoryMessage());
+
+            return entity;
         }
     }
 }

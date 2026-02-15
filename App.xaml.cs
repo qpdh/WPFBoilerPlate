@@ -2,12 +2,14 @@
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WPFBoilerPlate.Models;
+using WPFBoilerPlate.Models.Entities;
 using WPFBoilerPlate.Properties;
 using WPFBoilerPlate.Repositories;
 using WPFBoilerPlate.Repositories.Interfaces;
 using WPFBoilerPlate.Services;
+using WPFBoilerPlate.Services.Categories;
 using WPFBoilerPlate.Services.Interfaces;
+using WPFBoilerPlate.Services.Products;
 using WPFBoilerPlate.Utils;
 using WPFBoilerPlate.ViewModels;
 using WPFBoilerPlate.Views;
@@ -61,8 +63,8 @@ namespace WPFBoilerPlate
             services.AddSingleton<LocalizationService>();
 
             // Repositories
-            services.AddSingleton<IBaseRepository<Category>, CategoryRepository>();
-            services.AddSingleton<IBaseRepository<Product>, ProductRepository>();
+            services.AddSingleton<IBaseRepository<CategoryEntity>, CategoryRepository>();
+            services.AddSingleton<IBaseRepository<ProductEntity>, ProductRepository>();
 
             // Services
             services.AddSingleton<IProductService, ProductService>();
@@ -84,6 +86,4 @@ namespace WPFBoilerPlate
             return services.BuildServiceProvider();
         }
     }
-
 }
-
