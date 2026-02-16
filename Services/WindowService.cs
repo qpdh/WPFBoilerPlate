@@ -45,7 +45,6 @@ namespace WPFBoilerPlate.Services
 
                 // Show Dialog
                 window.Show();
-
             }
             catch (Exception ex)
             {
@@ -79,10 +78,8 @@ namespace WPFBoilerPlate.Services
 
                 // 등록
                 _opennedWindows[viewType] = window;
-
                 // Modal / Non-Modal
                 window.ShowDialog();
-
             }
             catch (Exception ex)
             {
@@ -101,13 +98,10 @@ namespace WPFBoilerPlate.Services
             }
         }
 
-
         public void ShowWindowWithParameter<TView, TParam>(TParam param, bool isModal = false) where TView : Window
         {
             throw new NotImplementedException();
         }
-
-
 
         private bool TryActivateExistingWindow(Type windowType)
         {
@@ -121,7 +115,5 @@ namespace WPFBoilerPlate.Services
             }
             return false;
         }
-
-
     }
 }

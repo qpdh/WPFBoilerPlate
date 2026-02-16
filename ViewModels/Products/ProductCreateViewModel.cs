@@ -11,7 +11,7 @@ using WPFBoilerPlate.ViewModels.Interfaces;
 
 namespace WPFBoilerPlate.ViewModels
 {
-    public partial class ProductCreateViewModel : ObservableValidator, IBaseViewModel
+    public partial class ProductCreateViewModel : ObservableValidator, IBaseViewModel, IInitializable
     {
         private readonly IProductService productService;
         private readonly ICategoryService categoryService;
@@ -38,14 +38,6 @@ namespace WPFBoilerPlate.ViewModels
             this.productService = productService;
             this.categoryService = categoryService;
             this.windowService = windowService;
-
-            OnLoaded();
-        }
-
-        private async Task OnLoaded()
-        {
-            Categories = (await categoryService.GetCategoriesAsync()).Value;
-            Category = Categories[0];
         }
 
         [RelayCommand]
@@ -69,6 +61,12 @@ namespace WPFBoilerPlate.ViewModels
                 await productService.AddProductAsync(product);
                 windowService.CloseWindow(this);
             }
+        }
+
+        public async Task InitializeAsync()
+        {
+            Categories = (await categoryService.GetCategoriesAsync()).Value;
+            Category = Categories[0];
         }
     }
 }

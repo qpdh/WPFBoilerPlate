@@ -34,7 +34,6 @@ namespace WPFBoilerPlate.ViewModels
             WeakReferenceMessenger.Default.RegisterAll(this);
         }
 
-        [RelayCommand]
         public async Task InitializeAsync()
         {
             IsLoading = true;

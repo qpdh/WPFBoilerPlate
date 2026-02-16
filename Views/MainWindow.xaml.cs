@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using WPFBoilerPlate.ViewModels.Interfaces;
 
 namespace WPFBoilerPlate
 {
@@ -10,6 +11,14 @@ namespace WPFBoilerPlate
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is IInitializable vm)
+            {
+                _ = vm.InitializeAsync(); // await 안 함
+            }
         }
     }
 }
