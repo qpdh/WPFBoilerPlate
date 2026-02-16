@@ -5,7 +5,6 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using WPFBoilerPlate.Models.Dtos.Products;
 using WPFBoilerPlate.Models.Messages;
-using WPFBoilerPlate.Services.Categories;
 using WPFBoilerPlate.Services.Interfaces;
 using WPFBoilerPlate.Services.Products;
 using WPFBoilerPlate.ViewModels.Interfaces;
@@ -13,11 +12,10 @@ using WPFBoilerPlate.Views;
 
 namespace WPFBoilerPlate.ViewModels
 {
-    public partial class MainViewModel : ObservableObject, IBaseViewModel, IRecipient<ProductUpdatedMessage>, IRecipient<ProductDeletedMessage>, IRecipient<ProductCreatedMessage>
+    public partial class MainViewModel : ObservableObject, IBaseViewModel, IInitializable, IDisposable, IRecipient<ProductUpdatedMessage>, IRecipient<ProductDeletedMessage>, IRecipient<ProductCreatedMessage>
     {
         private readonly IWindowService windowService;
         private readonly IProductService productService;
-        private readonly ICategoryService categoryService;
 
         [ObservableProperty]
         private ObservableCollection<ProductDto> products;
@@ -28,20 +26,21 @@ namespace WPFBoilerPlate.ViewModels
         [ObservableProperty]
         private bool isLoading;
 
-        public MainViewModel(IWindowService windowService, IProductService productService, ICategoryService categoryService)
+        public MainViewModel(IWindowService windowService, IProductService productService)
         {
             this.windowService = windowService;
             this.productService = productService;
-            this.categoryService = categoryService;
+
             WeakReferenceMessenger.Default.RegisterAll(this);
         }
 
         [RelayCommand]
-        private async Task LoadAsync()
+        public async Task InitializeAsync()
         {
             IsLoading = true;
             try
             {
+                await Task.Delay(2000);
                 var productResult = await productService.GetProductsAsync();
                 Products = new ObservableCollection<ProductDto>(productResult.Value);
             }
@@ -131,6 +130,11 @@ namespace WPFBoilerPlate.ViewModels
             }
 
             Products.Add(newProduct.Value);
+        }
+
+        public void Dispose()
+        {
+            WeakReferenceMessenger.Default.UnregisterAll(this);
         }
     }
 }

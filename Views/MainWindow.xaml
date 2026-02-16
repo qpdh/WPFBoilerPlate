@@ -11,8 +11,14 @@
     Width="800"
     Height="450"
     d:DataContext="{d:DesignInstance vm:MainViewModel}"
-    Loaded="Window_Loaded"
     mc:Ignorable="d">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding InitializeCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Border Padding="{StaticResource Spacing.M}">
         <Grid>
             <Grid.RowDefinitions>
@@ -42,7 +48,6 @@
                 </ListView.View>
             </ListView>
 
-
             <Grid Grid.Row="2">
                 <Button
                     HorizontalAlignment="Center"
@@ -53,7 +58,6 @@
                     Command="{Binding ChangeLanguageCommand}"
                     Content="{Binding [Button_ChangeLanguage], Source={StaticResource Loc}}" />
             </Grid>
-
         </Grid>
     </Border>
 </Window>

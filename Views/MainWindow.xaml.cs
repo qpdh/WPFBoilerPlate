@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using WPFBoilerPlate.ViewModels;
 
 namespace WPFBoilerPlate
 {
@@ -11,14 +10,6 @@ namespace WPFBoilerPlate
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is MainViewModel viewModel)
-            {
-                viewModel.LoadCommand.Execute(this);
-            }
         }
     }
 }
